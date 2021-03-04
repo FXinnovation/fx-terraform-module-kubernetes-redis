@@ -7,14 +7,16 @@ Template repository for public terraform modules
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.0.0 |
+| terraform | >= 0.13 |
+| kubernetes | >= 1.10.0 |
+| random | >= 2.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| kubernetes | n/a |
-| random | n/a |
+| kubernetes | >= 1.10.0 |
+| random | >= 2.0 |
 
 ## Inputs
 
