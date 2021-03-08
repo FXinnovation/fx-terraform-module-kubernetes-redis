@@ -3,7 +3,6 @@
 #####
 
 locals {
-  application_version = var.application_version
   labels = {
     name       = "redis"
     component  = "exporter"
@@ -12,16 +11,6 @@ locals {
     version    = local.application_version
   }
 
-
-  default_resource_requests = {
-    cpu    = "100m"
-    memory = "256Mi"
-  }
-
-  default_resource_limits = {
-    cpu    = "1000m"
-    memory = "1Gi"
-  }
 }
 
 #####
@@ -40,7 +29,6 @@ resource "random_string" "selector" {
 #####
 
 resource "kubernetes_stateful_set" "this" {
-  count = var.enabled ? 1 : 0
 
   metadata {
     name      = var.stateful_set_name
@@ -54,6 +42,8 @@ resource "kubernetes_stateful_set" "this" {
       {
         instance  = var.stateful_set_name
         component = "application"
+        cache     = "enabled"
+
       },
       local.labels,
       var.labels,
@@ -63,7 +53,7 @@ resource "kubernetes_stateful_set" "this" {
 
   spec {
     replicas     = var.replicas
-    service_name = element(concat(kubernetes_service.this.*.metadata.0.name, list("")), 0)
+    service_name = kubernetes_service.this.*.metadata.0.name
 
     update_strategy {
       type = "RollingUpdate"
@@ -79,16 +69,17 @@ resource "kubernetes_stateful_set" "this" {
     template {
       metadata {
         annotations = merge(
-          var.master_pod_annotations,
+          { "configuration/hash" = sha256(var.secrets) },
           local.annotations,
           var.annotations,
           var.stateful_set_template_annotations
         )
         labels = merge(
           {
-            role      = "master"
+
             instance  = var.stateful_set_name
             component = "application"
+            cache     = "enabled"
             selector  = "redis-${element(concat(random_string.selector.*.result, list("")), 0)}"
           },
           local.labels,
@@ -100,8 +91,8 @@ resource "kubernetes_stateful_set" "this" {
       spec {
 
         security_context {
-          fs_group    = var.master_security_context["fs_group"]
-          run_as_user = var.master_security_context["run_as_user"]
+          fs_group    = var.security_context["fs_group"]
+          run_as_user = var.security_context["run_as_user"]
         }
 
         node_selector = var.kubernetes_node_selector
@@ -113,42 +104,34 @@ resource "kubernetes_stateful_set" "this" {
 
         container {
           name              = "redis"
-          image             = var.redis_image
+          image             = "${var.image}:${var.image_version}"
           image_pull_policy = var.redis_image_pull_policy
-          args              = var.master_args
-
-          env_from {
-            config_map_ref {
-              name = kubernetes_config_map.this.*.metadata.0.name
-            }
-          }
-
-          env_from {
-            secret_ref {
-              name = kubernetes_secret.this.*.metadata.0.name
-            }
-          }
-
+          args              = var.args
+          command           = ["redis-server", "/usr/local/etc/redis/redis.conf"]
 
           resources {
-            requests = [merge(local.default_resource_requests, var.master_resource_requests)]
-
-            limits = [merge(local.default_resource_limits, var.master_resource_limits)]
+            limits {
+              cpu    = var.resources_limits_cpu
+              memory = var.resources_limits_memory
+            }
+            requests {
+              cpu    = var.resources_requests_cpu
+              memory = var.resources_requests_memory
+            }
           }
 
-
           port {
-            container_port = var.master_port
+            container_port = var.port
             protocol       = "TCP"
-            name           = "http"
+            name           = "RESP"
           }
 
           liveness_probe {
-            initial_delay_seconds = var.master_liveness_probe["initial_delay_seconds"]
-            period_seconds        = var.master_liveness_probe["period_seconds"]
-            timeout_seconds       = var.master_liveness_probe["timeout_seconds"]
-            success_threshold     = var.master_liveness_probe["success_threshold"]
-            failure_threshold     = var.master_liveness_probe["failure_threshold"]
+            initial_delay_seconds = var.liveness_probe["initial_delay_seconds"]
+            period_seconds        = var.liveness_probe["period_seconds"]
+            timeout_seconds       = var.liveness_probe["timeout_seconds"]
+            success_threshold     = var.liveness_probe["success_threshold"]
+            failure_threshold     = var.liveness_probe["failure_threshold"]
 
             exec {
               command = [
@@ -159,11 +142,11 @@ resource "kubernetes_stateful_set" "this" {
           }
 
           readiness_probe {
-            initial_delay_seconds = var.master_readiness_probe["initial_delay_seconds"]
-            period_seconds        = var.master_readiness_probe["period_seconds"]
-            timeout_seconds       = var.master_readiness_probe["timeout_seconds"]
-            success_threshold     = var.master_readiness_probe["success_threshold"]
-            failure_threshold     = var.master_readiness_probe["failure_threshold"]
+            initial_delay_seconds = var.readiness_probe["initial_delay_seconds"]
+            period_seconds        = var.readiness_probe["period_seconds"]
+            timeout_seconds       = var.readiness_probe["timeout_seconds"]
+            success_threshold     = var.readiness_probe["success_threshold"]
+            failure_threshold     = var.readiness_probe["failure_threshold"]
 
             exec {
               command = [
@@ -179,11 +162,27 @@ resource "kubernetes_stateful_set" "this" {
 
             content {
               name       = var.stateful_set_volume_claim_template_name
-              mount_path = "/var/redis"
+              mount_path = "/etc/redis"
               sub_path   = ""
             }
           }
+
+          volume_mount {
+
+            name       = secret
+            mount_path = "/usr/local/etc/redis/redis.conf"
+
+          }
         }
+
+        volume {
+          name = "secret"
+          config_map {
+            name = kubernetes_config_map.this.*.metadata.0.name
+          }
+        }
+
+
       }
     }
 
@@ -234,35 +233,6 @@ resource "kubernetes_stateful_set" "this" {
 }
 
 #####
-# ConfigMap
-#####
-
-resource "kubernetes_config_map" "this" {
-  count = var.enabled ? 1 : 0
-
-  metadata {
-    name      = var.config_map_name
-    namespace = var.namespace
-    annotations = merge(
-      var.annotations,
-      var.config_map_annotations
-    )
-    labels = merge(
-      {
-        instance = var.config_map_name
-      },
-      local.labels,
-      var.labels,
-      var.config_map_labels
-    )
-  }
-
-  data = {
-    "servicenow.yml" = var.configuration
-  }
-}
-
-#####
 # Secret
 #####
 
@@ -279,6 +249,7 @@ resource "kubernetes_secret" "this" {
     labels = merge(
       {
         "instance" = var.secret_name
+        component  = "configuration"
       },
       local.labels,
       var.labels,
@@ -286,7 +257,7 @@ resource "kubernetes_secret" "this" {
     )
   }
 
-  data = var.redis_secrets
+  data = var.secrets
 
   type = "Opaque"
 }
@@ -298,7 +269,6 @@ resource "kubernetes_secret" "this" {
 #####
 
 resource "kubernetes_service" "this" {
-  count = var.enabled ? 1 : 0
 
   metadata {
     name      = var.service_name
@@ -327,9 +297,9 @@ resource "kubernetes_service" "this" {
 
     port {
       port        = 6397
-      target_port = var.master_port
+      target_port = var.port
       protocol    = "TCP"
-      name        = "redis"
+      name        = "RESP"
     }
   }
 }
