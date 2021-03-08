@@ -128,7 +128,7 @@ variable "kubernetes_node_selector" {
 ##
 variable "port" {
   default = "6379"
-  type    = number
+  type    = string
 }
 
 variable "args" {
@@ -245,4 +245,33 @@ variable "service_labels" {
   default     = {}
   type        = map(string)
 
+}
+
+variable "replicas" {
+  default = "1"
+  type    = string
+}
+
+variable "resources_limits_cpu" {
+  description = "Amount of cpu time that the application limits."
+  default     = "2"
+  type        = string
+}
+
+variable "resources_limits_memory" {
+  description = "Amount of memory that the application limits."
+  default     = "4096Mi"
+  type        = string
+}
+
+variable "resources_requests_cpu" {
+  description = "Amount of cpu time that the application limits."
+  default     = "1"
+  type        = string
+}
+
+variable "resources_requests_memory" {
+  description = "Amount of memory that the application limits."
+  default     = "2048Mi"
+  type        = string
 }
