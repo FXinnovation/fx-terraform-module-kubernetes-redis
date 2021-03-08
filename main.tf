@@ -54,7 +54,7 @@ resource "kubernetes_stateful_set" "this" {
 
   spec {
     replicas     = var.replicas
-    service_name = kubernetes_service.this.*.metadata.name
+    service_name = kubernetes_service.this.metadata.0.name
 
     update_strategy {
       type = "RollingUpdate"
@@ -100,7 +100,7 @@ resource "kubernetes_stateful_set" "this" {
 
 
         automount_service_account_token = var.stateful_set_automount_service_account_token
-        service_account_name            = kubernetes_service_account.this.*.metadata.name
+        service_account_name            = kubernetes_service_account.this.metadata.0.name
 
 
         container {
