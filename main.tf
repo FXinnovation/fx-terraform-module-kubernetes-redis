@@ -11,6 +11,8 @@ locals {
     version    = local.application_version
   }
 
+  annotations = {}
+
 }
 
 #####
@@ -177,8 +179,8 @@ resource "kubernetes_stateful_set" "this" {
 
         volume {
           name = "secret"
-          config_map {
-            name = kubernetes_config_map.this.*.metadata.0.name
+          secret {
+            name = kubernetes_secret.this.*.metadata.0.name
           }
         }
 

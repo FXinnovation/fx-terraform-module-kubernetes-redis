@@ -34,8 +34,10 @@ Template repository for public terraform modules
 | redis\_image\_pull\_policy | One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. | `string` | `"IfNotPresent"` | no |
 | redis\_image\_registry | The docker image registry used to retrieve the redis image | `string` | `""` | no |
 | redis\_image\_repository | n/a | `string` | `""` | no |
-| secrets | Configuation to use for Redis | `string` | `""` | no |
+| secrets | secrets to use for Redis | `string` | `""` | no |
 | security\_context | n/a | `map(string)` | <pre>{<br>  "enabled": true,<br>  "fs_group": 1001,<br>  "run_as_user": 1001<br>}</pre> | no |
+| service\_account\_annotations | Map of service account annotations that will be applied on all resources. | `map(string)` | `{}` | no |
+| service\_account\_name | Service\_account\_name for Redis | `string` | `"redis"` | no |
 | service\_annotations | n/a | `map(string)` | `{}` | no |
 | service\_type | n/a | `string` | `"ClusterIP"` | no |
 | stateful\_set\_annotations | Map of annotations that will be applied on the statefulset. | `map(string)` | `{}` | no |
@@ -55,7 +57,6 @@ Template repository for public terraform modules
 
 | Name | Description |
 |------|-------------|
-| config\_map | n/a |
 | secret | n/a |
 | service | n/a |
 | service\_account | n/a |
