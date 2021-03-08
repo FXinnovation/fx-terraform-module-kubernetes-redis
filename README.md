@@ -26,11 +26,11 @@ No Modules.
 
 | Name |
 |------|
-| [kubernetes_secret](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret) |
-| [kubernetes_service](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service) |
-| [kubernetes_service_account](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account) |
-| [kubernetes_stateful_set](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/stateful_set) |
-| [random_string](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) |
+| [kubernetes_secret](https://registry.terraform.io/providers/hashicorp/kubernetes/1.10.0/docs/resources/secret) |
+| [kubernetes_service_account](https://registry.terraform.io/providers/hashicorp/kubernetes/1.10.0/docs/resources/service_account) |
+| [kubernetes_service](https://registry.terraform.io/providers/hashicorp/kubernetes/1.10.0/docs/resources/service) |
+| [kubernetes_stateful_set](https://registry.terraform.io/providers/hashicorp/kubernetes/1.10.0/docs/resources/stateful_set) |
+| [random_string](https://registry.terraform.io/providers/hashicorp/random/2.0/docs/resources/string) |
 
 ## Inputs
 
@@ -45,8 +45,13 @@ No Modules.
 | liveness\_probe | Redis  Liveness Probe configuration | `map(string)` | <pre>{<br>  "enabled": true,<br>  "failure_threshold": 5,<br>  "initial_delay_seconds": 30,<br>  "period_seconds": 10,<br>  "success_threshold": 1,<br>  "timeout_seconds": 5<br>}</pre> | no |
 | namespace | Name of the namespace in which to deploy the module. | `string` | `"redis"` | no |
 | pod\_annotations | n/a | `map(string)` | `{}` | no |
-| port | # # Redis Master parameters # | `number` | `"6379"` | no |
+| port | # # Redis Master parameters # | `string` | `"6379"` | no |
 | readiness\_probe | Redis Readiness Probe configuration | `map(string)` | <pre>{<br>  "enabled": true,<br>  "failure_threshold": 5,<br>  "initial_delay_seconds": 30,<br>  "period_seconds": 10,<br>  "success_threshold": 1,<br>  "timeout_seconds": 5<br>}</pre> | no |
+| replicas | n/a | `string` | `"1"` | no |
+| resources\_limits\_cpu | Amount of cpu time that the application limits. | `string` | `"2"` | no |
+| resources\_limits\_memory | Amount of memory that the application limits. | `string` | `"4096Mi"` | no |
+| resources\_requests\_cpu | Amount of cpu time that the application limits. | `string` | `"1"` | no |
+| resources\_requests\_memory | Amount of memory that the application limits. | `string` | `"2048Mi"` | no |
 | secret\_annotations | Map of secret annotations that will be applied on all resources. | `map(string)` | `{}` | no |
 | secret\_labels | Map of secret lables that will be applied on all resources. | `map(string)` | `{}` | no |
 | secret\_name | secret name for Redis | `string` | `"redis"` | no |
