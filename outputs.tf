@@ -7,27 +7,19 @@
 #####
 # Statefulset
 #####
-
 output "statefulset" {
-  value     = kubernetes_stateful_set.this
-  sensitive = true
+  value = module.this.statefulset
 }
-
 #####
 # Service
 #####
-
 output "service" {
-  value     = kubernetes_service.this
-  sensitive = true
+  value = module.this.service
 }
-
 output "secret" {
-  value     = kubernetes_secret.this
+  value     = module.this.secret
   sensitive = true
 }
-
 output "service_account" {
-  value     = kubernetes_service_account.this
-  sensitive = true
+  value = module.this.service_account
 }
