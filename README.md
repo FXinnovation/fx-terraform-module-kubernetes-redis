@@ -18,6 +18,20 @@ Template repository for public terraform modules
 | kubernetes | >= 1.10.0 |
 | random | >= 2.0 |
 
+## Modules
+
+No Modules.
+
+## Resources
+
+| Name |
+|------|
+| [kubernetes_secret](https://registry.terraform.io/providers/hashicorp/kubernetes/1.10.0/docs/resources/secret) |
+| [kubernetes_service_account](https://registry.terraform.io/providers/hashicorp/kubernetes/1.10.0/docs/resources/service_account) |
+| [kubernetes_service](https://registry.terraform.io/providers/hashicorp/kubernetes/1.10.0/docs/resources/service) |
+| [kubernetes_stateful_set](https://registry.terraform.io/providers/hashicorp/kubernetes/1.10.0/docs/resources/stateful_set) |
+| [random_string](https://registry.terraform.io/providers/hashicorp/random/2.0/docs/resources/string) |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -60,7 +74,6 @@ Template repository for public terraform modules
 | service | n/a |
 | service\_account | n/a |
 | statefulset | n/a |
-
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Versioning

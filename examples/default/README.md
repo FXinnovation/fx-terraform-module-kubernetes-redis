@@ -26,6 +26,19 @@
 | kubernetes | 1.10.0 |
 | random | ~> 2 >= 3.0 |
 
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| this | ../.. |  |
+
+## Resources
+
+| Name |
+|------|
+| [kubernetes_namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/1.10.0/docs/resources/namespace) |
+| [random_string](https://registry.terraform.io/providers/hashicorp/random/3.0/docs/resources/string) |
+
 ## Inputs
 
 No input.
@@ -35,5 +48,4 @@ No input.
 | Name | Description |
 |------|-------------|
 | this | n/a |
-
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
