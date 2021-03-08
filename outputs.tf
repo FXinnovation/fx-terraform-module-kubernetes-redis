@@ -2,9 +2,7 @@
 # Global
 #####
 
-output "namespace_name" {
-  value = var.enabled ? var.namespace : ""
-}
+
 
 #####
 # Statefulset
