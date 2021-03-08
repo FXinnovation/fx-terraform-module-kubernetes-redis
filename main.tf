@@ -178,7 +178,7 @@ resource "kubernetes_stateful_set" "this" {
         volume {
           name = "secret"
           secret {
-            name = kubernetes_secret.this.*.metadata.name
+            secret_name = kubernetes_secret.this.*.metadata.name
           }
         }
 
@@ -237,7 +237,6 @@ resource "kubernetes_stateful_set" "this" {
 #####
 
 resource "kubernetes_secret" "this" {
-
 
   metadata {
     name      = var.secret_name
