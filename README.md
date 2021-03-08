@@ -24,17 +24,16 @@ Template repository for public terraform modules
 |------|-------------|------|---------|:--------:|
 | annotations | Map of annotations that will be applied on all resources. | `map(string)` | `{}` | no |
 | args | Redis command arguments.<br>Can be used to specify command line arguments, for example:<br>args = [<br> "redis-server",<br> "--maxmemory-policy volatile-ttl"<br>] | `list(string)` | `[]` | no |
+| image | The docker image registry used to retrieve the redis image | `string` | `"redis"` | no |
+| image\_version | n/a | `string` | `"6.2.1"` | no |
 | kubernetes\_node\_selector | n/a | `map(string)` | `{}` | no |
 | labels | Map of labels that will be applied on all resources. | `map(string)` | `{}` | no |
 | liveness\_probe | Redis  Liveness Probe configuration | `map(string)` | <pre>{<br>  "enabled": true,<br>  "failure_threshold": 5,<br>  "initial_delay_seconds": 30,<br>  "period_seconds": 10,<br>  "success_threshold": 1,<br>  "timeout_seconds": 5<br>}</pre> | no |
-| namespace | Name of the namespace in which to deploy the module. | `string` | `"default"` | no |
+| namespace | Name of the namespace in which to deploy the module. | `string` | `"redis"` | no |
 | pod\_annotations | n/a | `map(string)` | `{}` | no |
 | port | # # Redis Master parameters # | `number` | `"6379"` | no |
 | readiness\_probe | Redis Readiness Probe configuration | `map(string)` | <pre>{<br>  "enabled": true,<br>  "failure_threshold": 5,<br>  "initial_delay_seconds": 30,<br>  "period_seconds": 10,<br>  "success_threshold": 1,<br>  "timeout_seconds": 5<br>}</pre> | no |
-| redis\_image\_pull\_policy | One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. | `string` | `"IfNotPresent"` | no |
-| redis\_image\_registry | The docker image registry used to retrieve the redis image | `string` | `""` | no |
-| redis\_image\_repository | n/a | `string` | `""` | no |
-| secrets | secrets to use for Redis | `string` | `""` | no |
+| secrets | secrets to use for Redis | `map(string)` | `{}` | no |
 | security\_context | n/a | `map(string)` | <pre>{<br>  "enabled": true,<br>  "fs_group": 1001,<br>  "run_as_user": 1001<br>}</pre> | no |
 | service\_account\_annotations | Map of service account annotations that will be applied on all resources. | `map(string)` | `{}` | no |
 | service\_account\_name | Service\_account\_name for Redis | `string` | `"redis"` | no |
