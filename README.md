@@ -81,9 +81,9 @@ No Modules.
 | Name | Description |
 |------|-------------|
 | secret | n/a |
-| service | #### Service #### |
+| service | n/a |
 | service\_account | n/a |
-| statefulset | #### Statefulset #### |
+| statefulset | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Versioning
