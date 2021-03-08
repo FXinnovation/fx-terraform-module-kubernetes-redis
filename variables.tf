@@ -85,8 +85,8 @@ variable "stateful_set_volume_claim_template_labels" {
 
 variable "stateful_set_volume_claim_template_name" {
   description = "Name of the statefulset's volume claim template."
-  default     = {}
-  type        = map(string)
+  default     = "redis"
+  type        = string
 }
 
 variable "stateful_set_volume_claim_template_storage_class" {
