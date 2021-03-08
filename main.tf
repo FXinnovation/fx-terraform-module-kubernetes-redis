@@ -124,7 +124,7 @@ resource "kubernetes_stateful_set" "this" {
           port {
             container_port = var.port
             protocol       = "TCP"
-            name           = "RESP"
+            name           = "resp"
           }
 
           liveness_probe {
@@ -298,7 +298,7 @@ resource "kubernetes_service" "this" {
       port        = 6397
       target_port = var.port
       protocol    = "TCP"
-      name        = "RESP"
+      name        = "resp"
     }
   }
 }
