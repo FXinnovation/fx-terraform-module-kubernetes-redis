@@ -3,7 +3,7 @@
 #####
 variable "namespace" {
   description = "Name of the namespace in which to deploy the module."
-  default     = "default"
+  default     = "redis"
   type        = string
 }
 
@@ -102,23 +102,16 @@ variable "stateful_set_volume_claim_template_requests_storage" {
 }
 
 
-variable redis_image_registry {
+variable image {
   description = "The docker image registry used to retrieve the redis image"
-  default     = ""
+  default     = "redis"
   type        = string
 }
 
-variable redis_image_repository {
-  default = ""
+variable image_version {
+  default = "6.2.1"
   type    = string
 }
-
-variable redis_image_pull_policy {
-  description = "One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise."
-  default     = "IfNotPresent"
-  type        = string
-}
-
 
 ##
 ## Kubernetes settings
@@ -209,10 +202,12 @@ variable service_annotations {
 
 variable "secrets" {
   description = "secrets to use for Redis"
-  default     = ""
+  type        = map(string)
+  default     = {}
 }
 
 variable "service_account_name" {
   description = "Service_account_name for Redis"
+  type        = string
   default     = "redis"
 }
