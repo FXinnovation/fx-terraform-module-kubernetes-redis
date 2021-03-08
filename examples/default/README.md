@@ -37,7 +37,7 @@
 | Name |
 |------|
 | [kubernetes_namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/1.10.0/docs/resources/namespace) |
-| [random_string](https://registry.terraform.io/providers/hashicorp/random/3.0/docs/resources/string) |
+| [random_string](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) |
 
 ## Inputs
 
