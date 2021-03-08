@@ -9,7 +9,8 @@
 #####
 
 output "statefulset" {
-  value = kubernetes_stateful_set.this
+  value     = kubernetes_stateful_set.this
+  sensitive = true
 }
 
 #####
@@ -17,7 +18,8 @@ output "statefulset" {
 #####
 
 output "service" {
-  value = kubernetes_service.this
+  value     = kubernetes_service.this
+  sensitive = true
 }
 
 output "secret" {
@@ -26,5 +28,6 @@ output "secret" {
 }
 
 output "service_account" {
-  value = kubernetes_service_account.this
+  value     = kubernetes_service_account.this
+  sensitive = true
 }

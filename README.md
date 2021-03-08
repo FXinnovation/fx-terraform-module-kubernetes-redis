@@ -26,11 +26,11 @@ No Modules.
 
 | Name |
 |------|
-| [kubernetes_secret](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret) |
-| [kubernetes_service](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service) |
-| [kubernetes_service_account](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account) |
-| [kubernetes_stateful_set](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/stateful_set) |
-| [random_string](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) |
+| [kubernetes_secret](https://registry.terraform.io/providers/hashicorp/kubernetes/1.10.0/docs/resources/secret) |
+| [kubernetes_service_account](https://registry.terraform.io/providers/hashicorp/kubernetes/1.10.0/docs/resources/service_account) |
+| [kubernetes_service](https://registry.terraform.io/providers/hashicorp/kubernetes/1.10.0/docs/resources/service) |
+| [kubernetes_stateful_set](https://registry.terraform.io/providers/hashicorp/kubernetes/1.10.0/docs/resources/stateful_set) |
+| [random_string](https://registry.terraform.io/providers/hashicorp/random/2.0/docs/resources/string) |
 
 ## Inputs
 
@@ -72,7 +72,7 @@ No Modules.
 | stateful\_set\_volume\_claim\_template\_annotations | Map of annotations that will be applied on the statefulset volume claim template. | `map(string)` | `{}` | no |
 | stateful\_set\_volume\_claim\_template\_enabled | Whether or not to enable the volume claim template on the statefulset. | `bool` | `true` | no |
 | stateful\_set\_volume\_claim\_template\_labels | Map of labels that will be applied on the statefulset volume claim template. | `map(string)` | `{}` | no |
-| stateful\_set\_volume\_claim\_template\_name | Name of the statefulset's volume claim template. | `map(string)` | `{}` | no |
+| stateful\_set\_volume\_claim\_template\_name | Name of the statefulset's volume claim template. | `string` | `"redis"` | no |
 | stateful\_set\_volume\_claim\_template\_requests\_storage | Size of storage the stateful set volume claim template requests. | `string` | `"200Gi"` | no |
 | stateful\_set\_volume\_claim\_template\_storage\_class | Storage class to use for the stateful set volume claim template. | `string` | `null` | no |
 
