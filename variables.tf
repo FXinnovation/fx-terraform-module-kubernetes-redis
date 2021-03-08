@@ -211,3 +211,38 @@ variable "service_account_name" {
   type        = string
   default     = "redis"
 }
+
+variable "secret_name" {
+  description = "secret name for Redis"
+  type        = string
+  default     = "redis"
+
+}
+
+variable "secret_annotations" {
+  description = "Map of secret annotations that will be applied on all resources."
+  default     = {}
+  type        = map(string)
+
+}
+
+variable "secret_labels" {
+  description = "Map of secret lables that will be applied on all resources."
+  default     = {}
+  type        = map(string)
+
+}
+
+variable "service_name" {
+  description = "service name for Redis"
+  type        = string
+  default     = "redis"
+
+}
+
+variable "service_labels" {
+  description = "Map of service lables that will be applied on all resources."
+  default     = {}
+  type        = map(string)
+
+}

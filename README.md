@@ -47,11 +47,16 @@ No Modules.
 | pod\_annotations | n/a | `map(string)` | `{}` | no |
 | port | # # Redis Master parameters # | `number` | `"6379"` | no |
 | readiness\_probe | Redis Readiness Probe configuration | `map(string)` | <pre>{<br>  "enabled": true,<br>  "failure_threshold": 5,<br>  "initial_delay_seconds": 30,<br>  "period_seconds": 10,<br>  "success_threshold": 1,<br>  "timeout_seconds": 5<br>}</pre> | no |
+| secret\_annotations | Map of secret annotations that will be applied on all resources. | `map(string)` | `{}` | no |
+| secret\_labels | Map of secret lables that will be applied on all resources. | `map(string)` | `{}` | no |
+| secret\_name | secret name for Redis | `string` | `"redis"` | no |
 | secrets | secrets to use for Redis | `map(string)` | `{}` | no |
 | security\_context | n/a | `map(string)` | <pre>{<br>  "enabled": true,<br>  "fs_group": 1001,<br>  "run_as_user": 1001<br>}</pre> | no |
 | service\_account\_annotations | Map of service account annotations that will be applied on all resources. | `map(string)` | `{}` | no |
 | service\_account\_name | Service\_account\_name for Redis | `string` | `"redis"` | no |
 | service\_annotations | n/a | `map(string)` | `{}` | no |
+| service\_labels | Map of service lables that will be applied on all resources. | `map(string)` | `{}` | no |
+| service\_name | service name for Redis | `string` | `"redis"` | no |
 | service\_type | n/a | `string` | `"ClusterIP"` | no |
 | stateful\_set\_annotations | Map of annotations that will be applied on the statefulset. | `map(string)` | `{}` | no |
 | stateful\_set\_automount\_service\_account\_token | Whether or not to mount the service account token in the pods. | `bool` | `true` | no |
