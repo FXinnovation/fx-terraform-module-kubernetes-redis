@@ -54,7 +54,7 @@ resource "kubernetes_stateful_set" "this" {
 
   spec {
     replicas     = var.replicas
-    service_name = kubernetes_service.this.*.metadata.0.name
+    service_name = kubernetes_service.this.*.metadata.name
 
     update_strategy {
       type = "RollingUpdate"
@@ -70,7 +70,7 @@ resource "kubernetes_stateful_set" "this" {
     template {
       metadata {
         annotations = merge(
-          { "configuration/hash" = sha256(var.secrets) },
+          { "configuration/hash" = sha256(join("", "", values(var.secrets))) },
           local.annotations,
           var.annotations,
           var.stateful_set_template_annotations
@@ -100,7 +100,7 @@ resource "kubernetes_stateful_set" "this" {
 
 
         automount_service_account_token = var.stateful_set_automount_service_account_token
-        service_account_name            = kubernetes_service_account.this.*.metadata.0.name
+        service_account_name            = kubernetes_service_account.this.*.metadata.name
 
 
         container {
@@ -178,7 +178,7 @@ resource "kubernetes_stateful_set" "this" {
         volume {
           name = "secret"
           secret {
-            name = kubernetes_secret.this.*.metadata.0.name
+            name = kubernetes_secret.this.*.metadata.name
           }
         }
 
