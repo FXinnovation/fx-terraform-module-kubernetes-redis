@@ -3,7 +3,7 @@
 #####
 
 provider "random" {
-  version = "~> 2"
+  version = "~> 3.0.0"
 }
 
 provider "kubernetes" {
