@@ -8,7 +8,6 @@ locals {
     component  = "exporter"
     part-of    = "monitoring"
     managed-by = "terraform"
-    version    = local.application_version
   }
 
   annotations = {}

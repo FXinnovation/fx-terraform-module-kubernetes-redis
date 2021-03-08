@@ -26,11 +26,11 @@ No Modules.
 
 | Name |
 |------|
-| [kubernetes_secret](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret) |
-| [kubernetes_service](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service) |
-| [kubernetes_service_account](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account) |
-| [kubernetes_stateful_set](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/stateful_set) |
-| [random_string](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) |
+| [kubernetes_secret](https://registry.terraform.io/providers/hashicorp/kubernetes/1.10.0/docs/resources/secret) |
+| [kubernetes_service_account](https://registry.terraform.io/providers/hashicorp/kubernetes/1.10.0/docs/resources/service_account) |
+| [kubernetes_service](https://registry.terraform.io/providers/hashicorp/kubernetes/1.10.0/docs/resources/service) |
+| [kubernetes_stateful_set](https://registry.terraform.io/providers/hashicorp/kubernetes/1.10.0/docs/resources/stateful_set) |
+| [random_string](https://registry.terraform.io/providers/hashicorp/random/2.0/docs/resources/string) |
 
 ## Inputs
 
