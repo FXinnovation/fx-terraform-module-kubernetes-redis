@@ -3,7 +3,8 @@
 #####
 
 output "statefulset" {
-  value = module.this.statefulset
+  value     = module.this.statefulset
+  sensitive = true
 }
 
 #####
@@ -11,7 +12,8 @@ output "statefulset" {
 #####
 
 output "service" {
-  value = module.this.service
+  value     = module.this.service
+  sensitive = true
 }
 
 output "secret" {
@@ -20,5 +22,6 @@ output "secret" {
 }
 
 output "service_account" {
-  value = module.this.service_account
+  value     = module.this.service_account
+  sensitive = true
 }
