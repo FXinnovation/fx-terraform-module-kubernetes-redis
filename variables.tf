@@ -13,6 +13,12 @@ variable "annotations" {
   type        = map(string)
 }
 
+variable "service_account_annotations" {
+  description = "Map of service account annotations that will be applied on all resources."
+  default     = {}
+  type        = map(string)
+}
+
 variable "labels" {
   description = "Map of labels that will be applied on all resources."
   default     = {}
@@ -202,6 +208,11 @@ variable service_annotations {
 }
 
 variable "secrets" {
-  description = "Configuation to use for Redis"
+  description = "secrets to use for Redis"
   default     = ""
+}
+
+variable "service_account_name" {
+  description = "Service_account_name for Redis"
+  default     = "redis"
 }
