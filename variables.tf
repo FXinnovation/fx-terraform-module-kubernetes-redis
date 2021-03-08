@@ -102,13 +102,13 @@ variable "stateful_set_volume_claim_template_requests_storage" {
 }
 
 
-variable image {
+variable "image" {
   description = "The docker image registry used to retrieve the redis image"
   default     = "redis"
   type        = string
 }
 
-variable image_version {
+variable "image_version" {
   default = "6.2.1"
   type    = string
 }
@@ -117,7 +117,7 @@ variable image_version {
 ## Kubernetes settings
 ##
 
-variable kubernetes_node_selector {
+variable "kubernetes_node_selector" {
   type    = map(string)
   default = {}
 
@@ -126,12 +126,12 @@ variable kubernetes_node_selector {
 ##
 ## Redis Master parameters
 ##
-variable port {
+variable "port" {
   default = "6379"
   type    = number
 }
 
-variable args {
+variable "args" {
   type = list(string)
 
   description = <<EOF
@@ -148,7 +148,7 @@ EOF
 
 
 
-variable liveness_probe {
+variable "liveness_probe" {
   type        = map(string)
   description = "Redis  Liveness Probe configuration"
 
@@ -162,7 +162,7 @@ variable liveness_probe {
   }
 }
 
-variable readiness_probe {
+variable "readiness_probe" {
   type        = map(string)
   description = "Redis Readiness Probe configuration"
 
@@ -176,12 +176,12 @@ variable readiness_probe {
   }
 }
 
-variable pod_annotations {
+variable "pod_annotations" {
   type    = map(string)
   default = {}
 }
 
-variable security_context {
+variable "security_context" {
   default = {
     enabled     = true
     fs_group    = 1001
@@ -190,12 +190,12 @@ variable security_context {
   type = map(string)
 }
 
-variable service_type {
+variable "service_type" {
   default = "ClusterIP"
   type    = string
 }
 
-variable service_annotations {
+variable "service_annotations" {
   type    = map(string)
   default = {}
 }
