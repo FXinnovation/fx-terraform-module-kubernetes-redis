@@ -150,8 +150,14 @@ EOF
 
 variable "liveness_probe" {
   type        = map(string)
-  description = "Redis  Liveness Probe configuration"
-
+  description = <<EOF
+  "Redis  Liveness Probe configuration"
+    example : {
+      enabled               = true
+      initial_delay_seconds = 30
+      period_seconds        = 10
+    }
+  EOF
   default = {
     enabled               = true
     initial_delay_seconds = 30
@@ -253,25 +259,54 @@ variable "replicas" {
 }
 
 variable "resources_limits_cpu" {
-  description = "Amount of cpu time that the application limits."
-  default     = "2"
+  description =  <<EOF
+  "Amount of cpu time that the application limits."
+
+    Redis Master resource limits
+    ref: http://kubernetes.io/docs/user-guide/compute-resources/
+      master_resource_limits = {
+        cpu = "100m"
+      }
+EOF
+  default     = "100m"
   type        = string
 }
 
 variable "resources_limits_memory" {
-  description = "Amount of memory that the application limits."
-  default     = "4096Mi"
+  description = <<EOF
+    Redis Master resource limits
+    ref: http://kubernetes.io/docs/user-guide/compute-resources/
+      master_resource_limits = {
+        memory = "256Mi"
+      }
+    EOF
+  default     = "256Mi"
   type        = string
 }
 
 variable "resources_requests_cpu" {
-  description = "Amount of cpu time that the application limits."
-  default     = "1"
+  description =  <<EOF
+  "Amount of cpu time that the application limits."
+
+    Redis Master resource limits
+    ref: http://kubernetes.io/docs/user-guide/compute-resources/
+      master_resource_limits = {
+        cpu = "100m"
+      }
+  EOF
+  default     = "100m"
   type        = string
 }
 
 variable "resources_requests_memory" {
-  description = "Amount of memory that the application limits."
-  default     = "2048Mi"
+  description = <<EOF
+    Redis Master resource limits
+    ref: http://kubernetes.io/docs/user-guide/compute-resources/
+      master_resource_limits = {
+        memory = "256Mi"
+      }
+    EOF
+
+  default     = "256Mi"
   type        = string
 }

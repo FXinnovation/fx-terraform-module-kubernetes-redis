@@ -4,8 +4,6 @@
 
 locals {
   labels = {
-    name       = "redis"
-    component  = "exporter"
     part-of    = "monitoring"
     managed-by = "terraform"
   }
@@ -40,13 +38,13 @@ resource "kubernetes_stateful_set" "this" {
       var.stateful_set_annotations
     )
     labels = merge(
+      local.labels,
       {
         instance  = var.stateful_set_name
-        component = "application"
+        component = "cache"
         cache     = "enabled"
 
       },
-      local.labels,
       var.labels,
       var.stateful_set_labels
     )
@@ -62,7 +60,7 @@ resource "kubernetes_stateful_set" "this" {
 
     selector {
       match_labels = {
-        selector = "redis-${element(concat(random_string.selector.*.result, list("")), 0)}"
+        selector = "redis-${random_string.selector.result}}"
       }
     }
 
@@ -70,20 +68,20 @@ resource "kubernetes_stateful_set" "this" {
     template {
       metadata {
         annotations = merge(
-          { "configuration/hash" = sha256(join(", ", values(var.secrets))) },
           local.annotations,
+          { "configuration/hash" = sha256(join(", ", values(var.secrets))) },
           var.annotations,
           var.stateful_set_template_annotations
         )
         labels = merge(
+          local.labels,
           {
 
             instance  = var.stateful_set_name
-            component = "application"
+            component = "cache"
             cache     = "enabled"
-            selector  = "redis-${element(concat(random_string.selector.*.result, list("")), 0)}"
+            selector  = "redis-${random_string.selector.result}}"
           },
-          local.labels,
           var.labels,
           var.stateful_set_template_labels
         )
@@ -106,7 +104,7 @@ resource "kubernetes_stateful_set" "this" {
         container {
           name  = "redis"
           image = "${var.image}:${var.image_version}"
-          # image_pull_policy = var.redis_image_pull_policy
+          image_pull_policy = var.redis_image_pull_policy
           args    = var.args
           command = ["redis-server", "/usr/local/etc/redis/redis.conf"]
 
@@ -122,7 +120,7 @@ resource "kubernetes_stateful_set" "this" {
           }
 
           port {
-            container_port = var.port
+            container_port = "6379"
             protocol       = "TCP"
             name           = "resp"
           }
@@ -199,11 +197,11 @@ resource "kubernetes_stateful_set" "this" {
             var.stateful_set_volume_claim_template_annotations
           )
           labels = merge(
+            local.labels,
             {
               instance  = var.stateful_set_volume_claim_template_name
               component = "storage"
             },
-            local.labels,
             var.labels,
             var.stateful_set_volume_claim_template_labels
           )
@@ -246,11 +244,11 @@ resource "kubernetes_secret" "this" {
       var.secret_annotations
     )
     labels = merge(
+      local.labels,
       {
         "instance" = var.secret_name
         component  = "configuration"
       },
-      local.labels,
       var.labels,
       var.secret_labels
     )
@@ -278,11 +276,11 @@ resource "kubernetes_service" "this" {
       var.service_annotations
     )
     labels = merge(
+      local.labels,
       {
         "instance"  = var.service_name
         "component" = "network"
       },
-      local.labels,
       var.labels,
       var.service_labels
     )
@@ -290,13 +288,13 @@ resource "kubernetes_service" "this" {
 
   spec {
     selector = {
-      selector = "redis-${element(concat(random_string.selector.*.result, list("")), 0)}"
+      selector = "redis-${random_string.selector.result}"
     }
     type = var.service_type
 
     port {
-      port        = 6397
-      target_port = var.port
+      port        = var.port
+      target_port = "resp"
       protocol    = "TCP"
       name        = "resp"
     }
