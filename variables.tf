@@ -310,3 +310,8 @@ variable "resources_requests_memory" {
   default = "256Mi"
   type    = string
 }
+
+variable "redis_image_pull_policy" {
+  description = "One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise."
+  default     = "IfNotPresent"
+}

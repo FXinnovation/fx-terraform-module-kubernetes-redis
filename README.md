@@ -47,6 +47,7 @@ No Modules.
 | pod\_annotations | n/a | `map(string)` | `{}` | no |
 | port | # # Redis Master parameters # | `string` | `"6379"` | no |
 | readiness\_probe | Redis Readiness Probe configuration | `map(string)` | <pre>{<br>  "enabled": true,<br>  "failure_threshold": 5,<br>  "initial_delay_seconds": 30,<br>  "period_seconds": 10,<br>  "success_threshold": 1,<br>  "timeout_seconds": 5<br>}</pre> | no |
+| redis\_image\_pull\_policy | One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. | `string` | `"IfNotPresent"` | no |
 | replicas | n/a | `string` | `"1"` | no |
 | resources\_limits\_cpu | "Amount of cpu time that the application limits."<br><br>    Redis Master resource limits<br>    ref: http://kubernetes.io/docs/user-guide/compute-resources/<br>      master\_resource\_limits = {<br>        cpu = "100m"<br>      } | `string` | `"100m"` | no |
 | resources\_limits\_memory | Redis Master resource limits<br>    ref: http://kubernetes.io/docs/user-guide/compute-resources/<br>      master\_resource\_limits = {<br>        memory = "256Mi"<br>      } | `string` | `"256Mi"` | no |
