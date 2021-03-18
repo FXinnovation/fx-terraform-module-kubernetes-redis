@@ -42,16 +42,16 @@ No Modules.
 | image\_version | n/a | `string` | `"6.2.1"` | no |
 | kubernetes\_node\_selector | n/a | `map(string)` | `{}` | no |
 | labels | Map of labels that will be applied on all resources. | `map(string)` | `{}` | no |
-| liveness\_probe | Redis  Liveness Probe configuration | `map(string)` | <pre>{<br>  "enabled": true,<br>  "failure_threshold": 5,<br>  "initial_delay_seconds": 30,<br>  "period_seconds": 10,<br>  "success_threshold": 1,<br>  "timeout_seconds": 5<br>}</pre> | no |
+| liveness\_probe | "Redis  Liveness Probe configuration"<br>    example : {<br>      enabled               = true<br>      initial\_delay\_seconds = 30<br>      period\_seconds        = 10<br>    } | `map(string)` | <pre>{<br>  "enabled": true,<br>  "failure_threshold": 5,<br>  "initial_delay_seconds": 30,<br>  "period_seconds": 10,<br>  "success_threshold": 1,<br>  "timeout_seconds": 5<br>}</pre> | no |
 | namespace | Name of the namespace in which to deploy the module. | `string` | `"redis"` | no |
 | pod\_annotations | n/a | `map(string)` | `{}` | no |
 | port | # # Redis Master parameters # | `string` | `"6379"` | no |
 | readiness\_probe | Redis Readiness Probe configuration | `map(string)` | <pre>{<br>  "enabled": true,<br>  "failure_threshold": 5,<br>  "initial_delay_seconds": 30,<br>  "period_seconds": 10,<br>  "success_threshold": 1,<br>  "timeout_seconds": 5<br>}</pre> | no |
 | replicas | n/a | `string` | `"1"` | no |
-| resources\_limits\_cpu | Amount of cpu time that the application limits. | `string` | `"2"` | no |
-| resources\_limits\_memory | Amount of memory that the application limits. | `string` | `"4096Mi"` | no |
-| resources\_requests\_cpu | Amount of cpu time that the application limits. | `string` | `"1"` | no |
-| resources\_requests\_memory | Amount of memory that the application limits. | `string` | `"2048Mi"` | no |
+| resources\_limits\_cpu | "Amount of cpu time that the application limits."<br><br>    Redis Master resource limits<br>    ref: http://kubernetes.io/docs/user-guide/compute-resources/<br>      master\_resource\_limits = {<br>        cpu = "100m"<br>      } | `string` | `"100m"` | no |
+| resources\_limits\_memory | Redis Master resource limits<br>    ref: http://kubernetes.io/docs/user-guide/compute-resources/<br>      master\_resource\_limits = {<br>        memory = "256Mi"<br>      } | `string` | `"256Mi"` | no |
+| resources\_requests\_cpu | "Amount of cpu time that the application limits."<br><br>    Redis Master resource limits<br>    ref: http://kubernetes.io/docs/user-guide/compute-resources/<br>      master\_resource\_limits = {<br>        cpu = "100m"<br>      } | `string` | `"100m"` | no |
+| resources\_requests\_memory | Redis Master resource limits<br>    ref: http://kubernetes.io/docs/user-guide/compute-resources/<br>      master\_resource\_limits = {<br>        memory = "256Mi"<br>      } | `string` | `"256Mi"` | no |
 | secret\_annotations | Map of secret annotations that will be applied on all resources. | `map(string)` | `{}` | no |
 | secret\_labels | Map of secret lables that will be applied on all resources. | `map(string)` | `{}` | no |
 | secret\_name | secret name for Redis | `string` | `"redis"` | no |

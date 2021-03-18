@@ -13,10 +13,8 @@
 | Name | Version |
 |------|---------|
 | terraform | >= 0.13 |
-| aws | >= 3.0 |
 | kubernetes | 1.10.0 |
 | random | >= 3.0 |
-| tls | >= 3.0 |
 
 ## Providers
 

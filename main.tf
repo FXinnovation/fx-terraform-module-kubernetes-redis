@@ -102,11 +102,11 @@ resource "kubernetes_stateful_set" "this" {
 
 
         container {
-          name  = "redis"
-          image = "${var.image}:${var.image_version}"
+          name              = "redis"
+          image             = "${var.image}:${var.image_version}"
           image_pull_policy = var.redis_image_pull_policy
-          args    = var.args
-          command = ["redis-server", "/usr/local/etc/redis/redis.conf"]
+          args              = var.args
+          command           = ["redis-server", "/usr/local/etc/redis/redis.conf"]
 
           resources {
             limits {

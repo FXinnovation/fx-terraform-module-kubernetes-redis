@@ -259,7 +259,7 @@ variable "replicas" {
 }
 
 variable "resources_limits_cpu" {
-  description =  <<EOF
+  description = <<EOF
   "Amount of cpu time that the application limits."
 
     Redis Master resource limits
@@ -285,7 +285,7 @@ variable "resources_limits_memory" {
 }
 
 variable "resources_requests_cpu" {
-  description =  <<EOF
+  description = <<EOF
   "Amount of cpu time that the application limits."
 
     Redis Master resource limits
@@ -307,6 +307,6 @@ variable "resources_requests_memory" {
       }
     EOF
 
-  default     = "256Mi"
-  type        = string
+  default = "256Mi"
+  type    = string
 }
