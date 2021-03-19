@@ -109,8 +109,9 @@ variable "image" {
 }
 
 variable "image_version" {
-  default = "6.2.1"
-  type    = string
+  description = "image version to use for grafana"
+  default     = "6.2.1"
+  type        = string
 }
 
 ##
@@ -118,8 +119,9 @@ variable "image_version" {
 ##
 
 variable "kubernetes_node_selector" {
-  type    = map(string)
-  default = {}
+  description = "kubernetes node selecrtor"
+  type        = map(string)
+  default     = {}
 
 }
 
@@ -127,8 +129,9 @@ variable "kubernetes_node_selector" {
 ## Redis Master parameters
 ##
 variable "port" {
-  default = "6379"
-  type    = string
+  description = "port valuue for the grafana"
+  default     = "6379"
+  type        = string
 }
 
 variable "args" {
@@ -183,11 +186,13 @@ variable "readiness_probe" {
 }
 
 variable "pod_annotations" {
-  type    = map(string)
-  default = {}
+  description = "pod annotations in a map string format"
+  type        = map(string)
+  default     = {}
 }
 
 variable "security_context" {
+  description = "security context if required "
   default = {
     enabled     = true
     fs_group    = 1001
@@ -197,8 +202,9 @@ variable "security_context" {
 }
 
 variable "service_type" {
-  default = "ClusterIP"
-  type    = string
+  description = "service type of"
+  default     = "ClusterIP"
+  type        = string
 }
 
 variable "service_annotations" {
