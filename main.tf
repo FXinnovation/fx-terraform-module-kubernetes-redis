@@ -60,7 +60,7 @@ resource "kubernetes_stateful_set" "this" {
 
     selector {
       match_labels = {
-        selector = "redis-${random_string.selector.result}}"
+        selector = "redis-${random_string.selector.result}"
       }
     }
 
@@ -80,7 +80,7 @@ resource "kubernetes_stateful_set" "this" {
             instance  = var.stateful_set_name
             component = "cache"
             cache     = "enabled"
-            selector  = "redis-${random_string.selector.result}}"
+            selector  = "redis-${random_string.selector.result}"
           },
           var.labels,
           var.stateful_set_template_labels
