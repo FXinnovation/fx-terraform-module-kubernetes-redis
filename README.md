@@ -48,7 +48,7 @@ No Modules.
 | port | port valuue for the grafana | `string` | `"6379"` | no |
 | readiness\_probe | Redis Readiness Probe configuration | `map(string)` | <pre>{<br>  "enabled": true,<br>  "failure_threshold": 5,<br>  "initial_delay_seconds": 30,<br>  "period_seconds": 10,<br>  "success_threshold": 1,<br>  "timeout_seconds": 5<br>}</pre> | no |
 | redis\_image\_pull\_policy | One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. | `string` | `"IfNotPresent"` | no |
-| replicas | n/a | `string` | `"1"` | no |
+| replicas | replicas required for the redis instance | `string` | `"1"` | no |
 | resources\_limits\_cpu | "Amount of cpu time that the application limits."<br><br>    Redis Master resource limits<br>    ref: http://kubernetes.io/docs/user-guide/compute-resources/<br>      master\_resource\_limits = {<br>        cpu = "100m"<br>      } | `string` | `"100m"` | no |
 | resources\_limits\_memory | Redis Master resource limits<br>    ref: http://kubernetes.io/docs/user-guide/compute-resources/<br>      master\_resource\_limits = {<br>        memory = "256Mi"<br>      } | `string` | `"256Mi"` | no |
 | resources\_requests\_cpu | "Amount of cpu time that the application limits."<br><br>    Redis Master resource limits<br>    ref: http://kubernetes.io/docs/user-guide/compute-resources/<br>      master\_resource\_limits = {<br>        cpu = "100m"<br>      } | `string` | `"100m"` | no |
@@ -60,7 +60,7 @@ No Modules.
 | security\_context | security context if required | `map(string)` | <pre>{<br>  "enabled": true,<br>  "fs_group": 1001,<br>  "run_as_user": 1001<br>}</pre> | no |
 | service\_account\_annotations | Map of service account annotations that will be applied on all resources. | `map(string)` | `{}` | no |
 | service\_account\_name | Service\_account\_name for Redis | `string` | `"redis"` | no |
-| service\_annotations | n/a | `map(string)` | `{}` | no |
+| service\_annotations | service annotations required for redis | `map(string)` | `{}` | no |
 | service\_labels | Map of service lables that will be applied on all resources. | `map(string)` | `{}` | no |
 | service\_name | service name for Redis | `string` | `"redis"` | no |
 | service\_type | service type of | `string` | `"ClusterIP"` | no |

@@ -208,8 +208,9 @@ variable "service_type" {
 }
 
 variable "service_annotations" {
-  type    = map(string)
-  default = {}
+  description = "service annotations required for redis"
+  type        = map(string)
+  default     = {}
 }
 
 variable "secrets" {
@@ -260,8 +261,9 @@ variable "service_labels" {
 }
 
 variable "replicas" {
-  default = "1"
-  type    = string
+  description = "replicas required for the redis instance"
+  default     = "1"
+  type        = string
 }
 
 variable "resources_limits_cpu" {
@@ -320,4 +322,5 @@ variable "resources_requests_memory" {
 variable "redis_image_pull_policy" {
   description = "One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise."
   default     = "IfNotPresent"
+  type        = string
 }
