@@ -221,7 +221,7 @@ resource "kubernetes_secret" "this" {
     )
   }
   data = {
-    redis.conf = var.secrets
+    "redis.conf" = var.secrets
   }
   type = "Opaque"
 }
