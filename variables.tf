@@ -215,8 +215,8 @@ variable "service_annotations" {
 
 variable "secrets" {
   description = "secrets to use for Redis"
-  type        = map(string)
-  default     = {}
+  type        = string
+  default     = ""
 }
 
 variable "service_account_name" {

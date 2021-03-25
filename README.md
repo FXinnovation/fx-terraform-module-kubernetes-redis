@@ -56,7 +56,7 @@ No Modules.
 | secret\_annotations | Map of secret annotations that will be applied on all resources. | `map(string)` | `{}` | no |
 | secret\_labels | Map of secret lables that will be applied on all resources. | `map(string)` | `{}` | no |
 | secret\_name | secret name for Redis | `string` | `"redis"` | no |
-| secrets | secrets to use for Redis | `map(string)` | `{}` | no |
+| secrets | secrets to use for Redis | `string` | `""` | no |
 | security\_context | security context if required | `map(string)` | <pre>{<br>  "enabled": true,<br>  "fs_group": 1001,<br>  "run_as_user": 1001<br>}</pre> | no |
 | service\_account\_annotations | Map of service account annotations that will be applied on all resources. | `map(string)` | `{}` | no |
 | service\_account\_name | Service\_account\_name for Redis | `string` | `"redis"` | no |
