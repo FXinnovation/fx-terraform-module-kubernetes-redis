@@ -140,8 +140,8 @@ resource "kubernetes_stateful_set" "this" {
             }
           }
           volume_mount {
-            name       = "secret"
-            mount_path = "/usr/local/etc/redis/redis.conf"
+            name       = "configuration-volume"
+            mount_path = "/usr/local/etc/redis"
           }
         }
         volume {
@@ -220,7 +220,9 @@ resource "kubernetes_secret" "this" {
       var.secret_labels
     )
   }
-  data = var.secrets
+  data = {
+    redis.conf = var.secrets
+  }
   type = "Opaque"
 }
 

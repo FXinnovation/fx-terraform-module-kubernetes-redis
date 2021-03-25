@@ -25,7 +25,7 @@ resource "kubernetes_namespace" "this" {
 #####
 
 module "this" {
-  source = "../.."
-
+  source    = "../.."
   namespace = kubernetes_namespace.this.metadata.0.name
+  secret    = file("${path.root}/templates/redis.conf")
 }
