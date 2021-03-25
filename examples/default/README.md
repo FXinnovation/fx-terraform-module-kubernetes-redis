@@ -44,7 +44,7 @@ No input.
 
 | Name | Description |
 |------|-------------|
-| secret | n/a |
+| config\_map | n/a |
 | service | #### Service #### |
 | service\_account | n/a |
 | statefulset | #### Statefulset #### |

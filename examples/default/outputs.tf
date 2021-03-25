@@ -10,8 +10,8 @@ output "statefulset" {
 output "service" {
   value = module.this.service
 }
-output "secret" {
-  value     = module.this.secret
+output "config_map" {
+  value     = module.this.config_map
   sensitive = true
 }
 output "service_account" {
