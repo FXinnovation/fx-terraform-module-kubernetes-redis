@@ -59,7 +59,7 @@ resource "kubernetes_stateful_set" "this" {
       metadata {
         annotations = merge(
           local.annotations,
-          { "configuration/hash" = sha256(join(", ", values(var.secrets))) },
+          { "configuration/hash" = sha256(var.secrets) },
           var.annotations,
           var.stateful_set_template_annotations
         )
