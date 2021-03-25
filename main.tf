@@ -142,7 +142,7 @@ resource "kubernetes_stateful_set" "this" {
         volume {
           name = "configuration-volume"
           config_map {
-            name = kubernetes_secret.this.metadata.0.name
+            name = kubernetes_config_map.this.metadata.0.name
           }
         }
       }
