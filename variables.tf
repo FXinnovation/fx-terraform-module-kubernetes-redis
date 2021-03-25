@@ -97,7 +97,7 @@ variable "stateful_set_volume_claim_template_storage_class" {
 
 variable "stateful_set_volume_claim_template_requests_storage" {
   description = "Size of storage the stateful set volume claim template requests."
-  default     = "200Gi"
+  default     = "10Gi"
   type        = string
 }
 
@@ -109,7 +109,7 @@ variable "image" {
 }
 
 variable "image_version" {
-  description = "image version to use for grafana"
+  description = "image version to use for redis"
   default     = "6.2.1"
   type        = string
 }
@@ -128,8 +128,8 @@ variable "kubernetes_node_selector" {
 ##
 ## Redis Master parameters
 ##
-variable "port" {
-  description = "port valuue for the grafana"
+variable "service_port" {
+  description = "port valuue for the redis"
   default     = "6379"
   type        = string
 }
@@ -185,12 +185,6 @@ variable "readiness_probe" {
   }
 }
 
-variable "pod_annotations" {
-  description = "pod annotations in a map string format"
-  type        = map(string)
-  default     = {}
-}
-
 variable "security_context" {
   description = "security context if required "
   default = {
@@ -213,8 +207,11 @@ variable "service_annotations" {
   default     = {}
 }
 
-variable "secrets" {
-  description = "secrets to use for Redis"
+variable "configuration" {
+  description = <<EOF
+  "configration needed for redis "
+    ref: http://download.redis.io/redis-stable/redis.conf
+  EOF
   type        = string
   default     = ""
 }
@@ -225,22 +222,22 @@ variable "service_account_name" {
   default     = "redis"
 }
 
-variable "secret_name" {
-  description = "secret name for Redis"
+variable "config_map_name" {
+  description = "config_map name for Redis"
   type        = string
   default     = "redis"
 
 }
 
-variable "secret_annotations" {
-  description = "Map of secret annotations that will be applied on all resources."
+variable "config_map_annotations" {
+  description = "Map of config annotations that will be applied on all resources."
   default     = {}
   type        = map(string)
 
 }
 
-variable "secret_labels" {
-  description = "Map of secret lables that will be applied on all resources."
+variable "config_map_labels" {
+  description = "Map of config_map lables that will be applied on all resources."
   default     = {}
   type        = map(string)
 

@@ -59,7 +59,7 @@ resource "kubernetes_stateful_set" "this" {
       metadata {
         annotations = merge(
           local.annotations,
-          { "configuration/hash" = sha256(var.secrets) },
+          { "configuration/hash" = sha256(var.configuration) },
           var.annotations,
           var.stateful_set_template_annotations
         )
@@ -76,12 +76,8 @@ resource "kubernetes_stateful_set" "this" {
         )
       }
       spec {
-        security_context {
-          fs_group    = var.security_context["fs_group"]
-          run_as_user = var.security_context["run_as_user"]
-        }
         node_selector                   = var.kubernetes_node_selector
-        automount_service_account_token = var.stateful_set_automount_service_account_token
+        automount_service_account_token = random_string.selector.result
         service_account_name            = kubernetes_service_account.this.metadata.0.name
         container {
           name              = "redis"
@@ -130,7 +126,6 @@ resource "kubernetes_stateful_set" "this" {
               ]
             }
           }
-
           dynamic "volume_mount" {
             for_each = var.stateful_set_volume_claim_template_enabled ? [1] : []
             content {
@@ -145,14 +140,13 @@ resource "kubernetes_stateful_set" "this" {
           }
         }
         volume {
-          name = "secret"
-          secret {
-            secret_name = kubernetes_secret.this.metadata.0.name
+          name = "configuration-volume"
+          config_map {
+            name = kubernetes_secret.this.metadata.0.name
           }
         }
       }
     }
-
     dynamic "volume_claim_template" {
       for_each = var.stateful_set_volume_claim_template_enabled ? [1] : []
       content {
@@ -174,7 +168,6 @@ resource "kubernetes_stateful_set" "this" {
             var.stateful_set_volume_claim_template_labels
           )
         }
-
         spec {
           access_modes       = ["ReadWriteOnce"]
           storage_class_name = var.stateful_set_volume_claim_template_storage_class
@@ -202,26 +195,26 @@ resource "kubernetes_stateful_set" "this" {
 # Secret
 #####
 
-resource "kubernetes_secret" "this" {
+resource "kubernetes_config_map" "this" {
   metadata {
-    name      = var.secret_name
+    name      = var.config_map_name
     namespace = var.namespace
     annotations = merge(
       var.annotations,
-      var.secret_annotations
+      var.config_map_annotations
     )
     labels = merge(
       local.labels,
       {
-        "instance" = var.secret_name
+        "instance" = var.config_map_name
         component  = "configuration"
       },
       var.labels,
-      var.secret_labels
+      var.config_map_labels
     )
   }
   data = {
-    "redis.conf" = var.secrets
+    "redis.conf" = var.configuration
   }
   type = "Opaque"
 }
@@ -249,21 +242,19 @@ resource "kubernetes_service" "this" {
       var.service_labels
     )
   }
-
   spec {
     selector = {
       selector = "redis-${random_string.selector.result}"
     }
     type = var.service_type
     port {
-      port        = var.port
+      port        = var.service_port
       target_port = "resp"
       protocol    = "TCP"
       name        = "resp"
     }
   }
 }
-
 resource "kubernetes_service_account" "this" {
   metadata {
     name      = var.service_account_name
