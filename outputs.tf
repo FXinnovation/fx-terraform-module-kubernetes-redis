@@ -16,8 +16,8 @@ output "service" {
 
 }
 
-output "secret" {
-  value     = kubernetes_secret.this
+output "config_map" {
+  value     = kubernetes_config_map.this
   sensitive = true
 }
 

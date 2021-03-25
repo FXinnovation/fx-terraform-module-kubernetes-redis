@@ -80,7 +80,7 @@ No Modules.
 
 | Name | Description |
 |------|-------------|
-| secret | n/a |
+| config\_map | n/a |
 | service | n/a |
 | service\_account | n/a |
 | statefulset | n/a |

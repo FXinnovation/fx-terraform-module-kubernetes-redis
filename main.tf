@@ -216,7 +216,6 @@ resource "kubernetes_config_map" "this" {
   data = {
     "redis.conf" = var.configuration
   }
-  type = "Opaque"
 }
 
 #####
